@@ -79,3 +79,111 @@ sb.toString();
 // Calculate the zero at that moment;
 // case 1: before slow++, map(array[slow]++); // This means we need one more char array[slow] and update #zero if map[array[slow]] == 1 zero--, else if (map[array[slow]]) == 0 zero++
 // Case 2: after fast++, map(array[fast]--); // This means we add one more array[fast] to the map and update #zero
+
+// Using a HashMap to store all the
+public int findAllAnagrams(String s, String pattern) {
+	// Base case
+		if (s == null || s.length() == 0 || pattern.length() > s.length()) {
+			return 0;
+		}
+
+		Map<Character, Integer> map = new HashMap();
+		int zero = 0;
+		char[] array = s.toCharArray();
+		char[] patternArray = pattern.toCharArray();
+		// First store all the chars from pattern into the map
+		for (char c : patternArray) {
+			if (map.containsKey(c)) {
+				int count = map.get(c);
+				map.put(c, count+1);
+			} else {
+				map.put(c, 1);
+			}
+		}
+
+		int result = 0;
+		int slow = 0;
+		// Go through the sArray to see if any anagram found
+		for (int i = 0; i < array.length; i++) {
+			if (i < pattern.length()) {
+				if (map.containsKey(array[i])) {
+					int count = map.get(array[i]);
+					map.put(array[i], count-1);
+				} else {
+					// Ignore all the chars which is not from pattern
+				}
+			} else {
+				 slow = i-pattern.length();
+				// Check the first out char
+				if (map.containsKey(array[slow])) {
+					int count = map.get(array[slow]);
+					if (count == 0) {
+						zero--;
+						map.put(array[slow], count+1);
+						if (count + 1 == 0) {
+							zero++;
+						}
+					}
+				}
+				// Check the adding new char
+				if (map.containsKey(array[i])) {
+					int count = map.get(array[i]);
+					if (count == 0) {
+						zero--;
+						map.put(array[slow], count-1);
+						if (count - 1 == 0) {
+							zero++;
+						}
+					}
+				}
+				if (zero == pattern.length()) {
+					result++;
+				}
+			}
+		}
+		return result;
+}
+
+// String Compress
+class Solution {
+    public int compress(char[] chars) {
+        // Base case
+        if (chars == null || chars.length == 0) {
+						return 0;
+        }
+        int slow = 0;
+        int fast = 1;
+        for (; fast < chars.length; fast++) {
+            if (chars[slow] != chars[fast]) {
+                // Check if fast - slow == 1, this means only one char and dont need to do anything
+								int count = fast - slow;
+                if (count > 1) {
+                    char[] countArray = String.valueOf(count).toCharArray();
+                    for (int i = 0; i < countArray.length; i++) {
+                        chars[slow+1] = countArray[i];
+                        slow++;
+                    }
+										chars[slow+1] = chars[fast];
+										slow++;
+                }
+            }
+        }
+        return slow+1;
+    }
+}
+
+// Lincence format
+// a-b-c-d-e-2-J => k = 4, abc-de2J
+// Using math
+// First count how many un-dash chars in the origin string s
+// find the group number using s.length()/k, if s.length()%k == 0, even divided, other wise the fir group length == s.length()%k
+// Using StringBuilder or inplace to generate the new String
+
+
+// PolidromeII
+// Requirement: Delete at most one char to see if it is Polidrome
+// abcba yes, abcdba delete 'd' yes, abcddbc no
+// Using two pointer to solve this problem, similar to reverse String/ Polidrome
+// i = 0, j = array.length-1
+// while i < j, array[i] == array[j], i++ , j--;
+// when array[i] != array[j], calculate the distance between j-i, if j-i > 2, return false;
