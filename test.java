@@ -145,6 +145,7 @@ public int findAllAnagrams(String s, String pattern) {
 }
 
 // String Compress
+// O(n)
 class Solution {
     public int compress(char[] chars) {
         // Base case
@@ -173,17 +174,31 @@ class Solution {
 }
 
 // Lincence format
+// O(n)
 // a-b-c-d-e-2-J => k = 4, abc-de2J
 // Using math
 // First count how many un-dash chars in the origin string s
 // find the group number using s.length()/k, if s.length()%k == 0, even divided, other wise the fir group length == s.length()%k
 // Using StringBuilder or inplace to generate the new String
 
-
-// PolidromeII
+// PalindromeII
+// O(n + m)
 // Requirement: Delete at most one char to see if it is Polidrome
 // abcba yes, abcdba delete 'd' yes, abcddbc no
 // Using two pointer to solve this problem, similar to reverse String/ Polidrome
 // i = 0, j = array.length-1
 // while i < j, array[i] == array[j], i++ , j--;
-// when array[i] != array[j], calculate the distance between j-i, if j-i > 2, return false;
+// when array[i] != array[j], do two paralevel checking ,one for i--,j, another is i, j--, Since we dont know which word can be deleted
+// Check if either i--,j or i, j-- works, otherwise return false
+
+// Path SumIII
+// O(lgn4)
+// Using DFS Backtracking to solve the problem
+// For each of the node, add current.val first dfs(value+current.val), then dont change the value and directly pass to the next dfs(value);
+// There for for each of the node,will will call 4 times left*2, right*2
+
+// K-diff pairs in an Array
+// O(n)
+// Using HashMap<Integer, Count> to keep all the origin data
+// Using another HashMap<i+j, i,j> to keep the result
+// For loop the list, if array[i]+target existd in the map, check if this pair is in the result, add if new, remove if duplicate happens
