@@ -202,3 +202,39 @@ class Solution {
 // Using HashMap<Integer, Count> to keep all the origin data
 // Using another HashMap<i+j, i,j> to keep the result
 // For loop the list, if array[i]+target existd in the map, check if this pair is in the result, add if new, remove if duplicate happens
+
+
+// // Iterative
+// public class Solution {
+// public ListNode reverse(ListNode head) {
+// 	If (head == null) { // If head == null, just return
+// 		return null;
+// }
+// If (head.next == null) { // If head.next == null, just return the head
+// 	return head;
+// }
+// ListNode pre = null;
+// ListNode curr = head;
+// ListNode next = null;
+// while (curr.next != null) {  -4
+//  next = curr.next;
+// 	pre = curr;
+// 	curr = next;
+// 	next = curr.next;
+// }
+// return curr;
+// }
+// }
+
+// Recursion
+public class Solution {
+	public ListNode revertList (ListNode root) {
+		if (root == null || root.next == null) {
+			return root;
+		}
+		ListNode newHead = this.revertlist(root.next);
+		root.next.next = root;
+		root.next = null;
+		return newHead;
+	}
+}
