@@ -226,15 +226,21 @@ class Solution {
 // }
 // }
 
-// Recursion
-public class Solution {
-	public ListNode revertList (ListNode root) {
-		if (root == null || root.next == null) {
-			return root;
-		}
-		ListNode newHead = this.revertlist(root.next);
-		root.next.next = root;
-		root.next = null;
-		return newHead;
+// // Recursion
+// public class Solution {
+// 	public ListNode revertList (ListNode root) {
+// 		if (root == null || root.next == null) {
+// 			return root;
+// 		}
+// 		ListNode newHead = this.revertlist(root.next);
+// 		root.next.next = root;
+// 		root.next = null;
+// 		return newHead;
+// 	}
+// }
+for (int i = 0; i < row.length; i++) {
+	if (cur.get(i) == col || Math.abs(cur.get(i) - col) == row - i) {
+		return false;
 	}
 }
+return true;
