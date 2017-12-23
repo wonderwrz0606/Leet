@@ -4,7 +4,7 @@
 // 3. Understand how to solve the N-queens using the 2 methods from Laicode
 // 4. Finish the Spiral array I
 // 5. Finish cut rope(recursion, 左大段+右大段， 左大段+右小段), Longest ascending array, Jump game
-// 6. Work on the dicitionary problem and shortest dp
+// 6. Work on the dicitionary problem and shortest jump game
 
 // Reserve String using recursion
 // Time complexity: O(n)
@@ -43,20 +43,38 @@ public class Solution {
   public List<Integer> spiral(int[][] matrix) {
     // Write your solution here.
     List<Integer> result = new LinkedList<>();
-    if (matrix == null) {
+    if (matrix == null || matrix.length == 0) {
       return result;
     }
-    if (matrix.length <= 1) { // Need to double check if we can initiate a linkedList from matrix
-      result = new LinkedList(matrix);
-    }
-    // Check top, right, bottom, left
-    int left = 0;
-    int right = matrix.length-1;
-    while (left <= right) {
-      // Go through the top row
-      for (int i = left; ) {
-
+    int rowShift = 0;
+    int colShift = 0;
+    int rowTotalIndex = matrix.length-1;
+    int colTotalIndex = matrix[0].length-1;
+    while (rowShift <= rowTotalIndex-rowShift) { // Using <= since the length of the row may be odd
+      if (rowShift == rowTotalIndex-rowShift) {
+        for (int i = rowShift; i <= colTotalIndex-colShift-1; i++) {
+          result.add(matrix[rowShift][i]);
+        }
+        break;
       }
+      // Top side
+      for (int i = rowShift; i <= colTotalIndex-colShift-1; i++) {
+        result.add(matrix[rowShift][i]);
+      }
+      // Right side
+      for (int i = 0; i <= rowTotalIndex-rowShift-1; i++) {
+        result.add(matrix[i][colTotalIndex-colShift]);
+      }
+      // Bottom side
+      for (int i = colTotalIndex-colShift; i > colShift; i--) {
+        result.add(matrix[rowTotalIndex-rowShift][i]);
+      }
+      // Left side
+      for (int i = rowTotalIndex-rowShift; i > rowShift; i--) {
+        result.add(matrix[i][colShift]);
+      }
+      rowShift++;
+      colShift++;
     }
     return result;
   }
