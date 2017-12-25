@@ -1,2 +1,2 @@
-// Learned Redux Form and React Routing
-// Finished the majority part of React course of Udemy
+// (Not done)Learned Redux Form and React Routing
+// (Not done)Finished the majority part of React course of Udemy
