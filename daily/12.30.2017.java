@@ -1,2 +1,3 @@
 // Review the sampling lecture and homework
-// Relax
+// Finish learning Redux Form
+// Finish the Udemy React course
